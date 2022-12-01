@@ -61,8 +61,8 @@ We chose the 470.lbm benchmark to change the memory from DDR3_1600_x64 to DDR3_2
 
 | Memory          |Run time       | CPI       | Miss rate L1 d cache  | Miss rate L1 i cache  | Miss rate L2 cache  |
 | --------------- |:-------------:|:---------:| ---------------------:| ---------------------:| -------------------:|
-| DDR3_1600_x64   | 0.174641      | 3.493415  | 0.060972              | 0.000094              | 0.999944          |
-| DDR3_2133_x64   | 0.171530      | 3.430593  | 0.060972              | 0.000094              | 0.999944          |
+| DDR3_1600_x64   | 0.174641      | 3.493415  | 0.060972              | 0.000094              | 0.999944            |
+| DDR3_2133_x64   | 0.171530      | 3.430593  | 0.060972              | 0.000094              | 0.999944            |
 
 **Comments:**
 1. The DDR3_2133_x64 has a clock on 2133MHz higher than the DDR3_1600_x64 which runs on 1600MHz. As a result, on any cache miss from the L2 cache, the data will come to the caches and finally to the CPU faster than previously. Due to the minor CPU model (one instruction each time), the faster memory decreases the CPI and finally the simulated time.
@@ -80,13 +80,36 @@ The restriction of the L1 cache on 256KB and the two types of cache instruction 
 
 ![image](https://user-images.githubusercontent.com/118462296/205172474-5a57f70d-8380-4367-8f6f-ad7221088bc9.png)
 
+The better parameters for the cache on the 401.bzip benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 32KB
+* L2 size = 4MB
+* L1 association = 4
+* L2 association = 4
+
+By choosing the parameters above, the **CPI** will be **1.539881**
+
+
 **429.mcf**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178037-c2153272-f09f-4a77-97bd-6c0943d4d39d.png)
 
+The better parameters for the cache on the 429.mcf benchmark are:
+* Cache Line = 32
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 4MB
+* L1 association = 4
+* L2 association = 4
+
+By choosing the parameters above, the CPI and the miss rates will be :
+
 **456.hmmer**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178136-ebe9a5e2-a293-48f1-95ea-b543a5993d8f.png)
+
+
 
 **458.sjeng**
 
