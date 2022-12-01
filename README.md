@@ -1,9 +1,9 @@
-### **Second Computer Architecture Lab : Cache oprimization**
+## **Second Computer Architecture Lab : Cache oprimization**
 
 Authors: Konstantinidis Paschalis, Tzouvaras Evangelos
 
 ### **_Intro_**
-The objective of this lab is to understand better the different cache parameters and how any change on the cache techology can affect on the execution time of different benchmarks. The tests became on the 401.bzip, 429.mcf, 456.hmmer, 458.sjeng mad 470.lbm benchmarks. On the first part the simulations are on different cpu clocks and how this affect on the cache misses. The second part includes simulations on different cache parameters and ends up to the optimized cache design for each benchmark. The third part analyzes a cost function based on the different cache parameters. 
+The objective of this lab is to understand better the different cache parameters and how any change on the cache techology can affect on the execution time of different benchmarks. The tests became on the 401.bzip, 429.mcf, 456.hmmer, 458.sjeng and 470.lbm benchmarks. On the first part the simulations are on different cpu clocks and how this affect on the cache misses. The second part includes simulations on different cache parameters and ends up to the optimized cache design for each benchmark. The third part analyzes a cost function based on the different cache parameters. 
 
 ### **_First Part: Run benchmarks_**
 
@@ -36,17 +36,17 @@ _Question 3_
 
 On this step we keep the cache parameters as the default and we change the CPU clock on the 1GHz and on the 3GHz. The default CPU clock that produced the data above was on the 2GHz. 
 
-* The affect of the different CPU clock on the simulated seconds, is presented on the following graph: 
+* The affect of the different CPU clock on the **simulated seconds**, is presented on the following graph: 
 
-![image](https://user-images.githubusercontent.com/118462296/205145923-baa80f47-224f-4b82-9a15-797cbb38a5a7.png)
+![image](https://user-images.githubusercontent.com/118462296/205174906-d478125a-20d4-4641-af3a-eb58ac266708.png)
 
-* The next graph shows the CPI numbers for each benchmark on the three different CPU clocks:
+* The next graph shows the **CPI** numbers for each benchmark on the three different CPU clocks:
 
-![image](https://user-images.githubusercontent.com/118462296/205146222-b261c6be-c66a-4300-8905-ab6ca0705a08.png)
+![image](https://user-images.githubusercontent.com/118462296/205174989-5247e2b1-228d-4416-a062-714b395dd065.png)
 
-* On the final gragh we can see the affect of the CPU clock on the miss rate of each cache level for the 429.mfc benchmark:
+* On the final gragh we can see the affect of the CPU clock on the **miss rate** of each cache level for the 429.mfc benchmark:
 
-![image](https://user-images.githubusercontent.com/118462296/205147211-cf6ab42b-7668-4010-8392-664083f5594f.png)
+![image](https://user-images.githubusercontent.com/118462296/205175093-c666f7ee-77b9-4324-9057-53cd1b1bf0e4.png)
 
 
 **Comments:**
@@ -65,5 +65,35 @@ We chose the 470.lbm benchmark to change the memory from DDR3_1600_x64 to DDR3_2
 | DDR3_2133_x64   | 0.171530      | 3.430593  | 0.060972              | 0.000094              | 0.999944          |
 
 **Comments:**
-(1) The DDR3_2133_x64 has a clock on 2133MHz higher than the DDR3_1600_x64 which runs on 1600MHz. As a result, on any cache miss from the L2 cache, the data will come to the caches and finally to the CPU faster than previously. Due to the minor CPU model (one instruction each time), the faster memory decreases the CPI and finally the simulated time.
-(2) The faster memory does not have any impact on the cache miss rate because the cache technology remained same. 
+1. The DDR3_2133_x64 has a clock on 2133MHz higher than the DDR3_1600_x64 which runs on 1600MHz. As a result, on any cache miss from the L2 cache, the data will come to the caches and finally to the CPU faster than previously. Due to the minor CPU model (one instruction each time), the faster memory decreases the CPI and finally the simulated time.
+2. The faster memory does not have any impact on the cache miss rate because the cache technology remained same. 
+
+
+### **_Second Part: Cache optimization_**
+
+To find the optimal cache design we chose to run multiple simulations and to change one parameter each time. Due to the minor CPU model the minimum CPI defines the more optimal cache design. 
+
+The restriction of the L1 cache on 256KB and the two types of cache instruction and data, it limits us to use up to 128KB instruction and 128KB data cache. We chose as cache line up to 256 and the association for L1 up to 4 and for L2 up to 16.   
+
+
+**401.bzip**
+
+![image](https://user-images.githubusercontent.com/118462296/205172474-5a57f70d-8380-4367-8f6f-ad7221088bc9.png)
+
+**429.mcf**
+
+![image](https://user-images.githubusercontent.com/118462296/205178037-c2153272-f09f-4a77-97bd-6c0943d4d39d.png)
+
+**456.hmmer**
+
+![image](https://user-images.githubusercontent.com/118462296/205178136-ebe9a5e2-a293-48f1-95ea-b543a5993d8f.png)
+
+**458.sjeng**
+
+![image](https://user-images.githubusercontent.com/118462296/205178221-d93cfd6b-0df5-4cb6-8101-7b76d0ed29d8.png)
+
+**470.lbm**
+
+![image](https://user-images.githubusercontent.com/118462296/205178275-8573eb51-9e84-4251-87e5-c30ce579506c.png)
+
+
