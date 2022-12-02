@@ -95,6 +95,32 @@ style="rounded, filled";
 tooltip="app_path&#61;/&#10;\eventq_index&#61;0&#10;\host_paths&#61;/";
 }
 
+subgraph cluster_system_tol2bus {
+color="#000000";
+fillcolor="#6f798c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tol2bus \n: L2XBar";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="clk_domain&#61;system.cpu_clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\eventq_index&#61;0&#10;\forward_latency&#61;0&#10;\frontend_latency&#61;1&#10;\max_outstanding_snoops&#61;512&#10;\max_routing_table_size&#61;512&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\point_of_coherency&#61;false&#10;\point_of_unification&#61;true&#10;\power_model&#61;&#10;\response_latency&#61;1&#10;\snoop_filter&#61;system.tol2bus.snoop_filter&#10;\snoop_response_latency&#61;1&#10;\system&#61;system&#10;\use_default_range&#61;false&#10;\width&#61;32";
+system_tol2bus_master [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=master, shape=Mrecord, style="rounded, filled"];
+system_tol2bus_slave [color="#000000", fillcolor="#586070", fontcolor="#000000", fontname=Arial, fontsize=14, label=slave, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_tol2bus_snoop_filter {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="snoop_filter \n: SnoopFilter";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0&#10;\lookup_latency&#61;0&#10;\max_capacity&#61;8388608&#10;\system&#61;system";
+}
+
+}
+
 subgraph cluster_system_voltage_domain {
 color="#000000";
 fillcolor="#bab6ae";
@@ -117,6 +143,56 @@ label="clk_domain \n: SrcClockDomain";
 shape=Mrecord;
 style="rounded, filled";
 tooltip="clock&#61;1000&#10;\domain_id&#61;-1&#10;\eventq_index&#61;0&#10;\init_perf_level&#61;0&#10;\voltage_domain&#61;system.voltage_domain";
+}
+
+subgraph cluster_system_l2 {
+color="#000000";
+fillcolor="#bab6ae";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="l2 \n: L2Cache";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="addr_ranges&#61;0:18446744073709551615&#10;\assoc&#61;8&#10;\clk_domain&#61;system.cpu_clk_domain&#10;\clusivity&#61;mostly_incl&#10;\compressor&#61;Null&#10;\data_latency&#61;20&#10;\default_p_state&#61;UNDEFINED&#10;\demand_mshr_reserve&#61;1&#10;\eventq_index&#61;0&#10;\is_read_only&#61;false&#10;\max_miss_count&#61;0&#10;\mshrs&#61;20&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\prefetch_on_access&#61;false&#10;\prefetcher&#61;Null&#10;\replacement_policy&#61;system.l2.replacement_policy&#10;\response_latency&#61;20&#10;\sequential_access&#61;false&#10;\size&#61;2097152&#10;\system&#61;system&#10;\tag_latency&#61;20&#10;\tags&#61;system.l2.tags&#10;\tgts_per_mshr&#61;12&#10;\warmup_percentage&#61;0&#10;\write_allocator&#61;Null&#10;\write_buffers&#61;8&#10;\writeback_clean&#61;false";
+system_l2_mem_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=mem_side, shape=Mrecord, style="rounded, filled"];
+system_l2_cpu_side [color="#000000", fillcolor="#94918b", fontcolor="#000000", fontname=Arial, fontsize=14, label=cpu_side, shape=Mrecord, style="rounded, filled"];
+subgraph cluster_system_l2_replacement_policy {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="replacement_policy \n: LRURP";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="eventq_index&#61;0";
+}
+
+subgraph cluster_system_l2_tags {
+color="#000000";
+fillcolor="#9f9c95";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="tags \n: BaseSetAssoc";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\block_size&#61;64&#10;\clk_domain&#61;system.cpu_clk_domain&#10;\default_p_state&#61;UNDEFINED&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\indexing_policy&#61;system.l2.tags.indexing_policy&#10;\p_state_clk_gate_bins&#61;20&#10;\p_state_clk_gate_max&#61;1000000000000&#10;\p_state_clk_gate_min&#61;1000&#10;\power_model&#61;&#10;\replacement_policy&#61;system.l2.replacement_policy&#10;\sequential_access&#61;false&#10;\size&#61;2097152&#10;\system&#61;system&#10;\tag_latency&#61;20&#10;\warmup_percentage&#61;0";
+subgraph cluster_system_l2_tags_indexing_policy {
+color="#000000";
+fillcolor="#84827c";
+fontcolor="#000000";
+fontname=Arial;
+fontsize=14;
+label="indexing_policy \n: SetAssociative";
+shape=Mrecord;
+style="rounded, filled";
+tooltip="assoc&#61;8&#10;\entry_size&#61;64&#10;\eventq_index&#61;0&#10;\size&#61;2097152";
+}
+
+}
+
 }
 
 subgraph cluster_system_cpu_voltage_domain {
@@ -1466,10 +1542,12 @@ tooltip="clk_domain&#61;system.cpu_clk_domain&#10;\default_p_state&#61;UNDEFINED
 
 system_system_port -> system_membus_slave  [dir=forward];
 system_membus_master -> system_mem_ctrls_port  [dir=forward];
-system_membus_slave -> system_cpu_icache_mem_side  [dir=back];
-system_membus_slave -> system_cpu_dcache_mem_side  [dir=back];
-system_membus_slave -> system_cpu_itb_walker_port  [dir=back];
-system_membus_slave -> system_cpu_dtb_walker_port  [dir=back];
+system_membus_slave -> system_l2_mem_side  [dir=back];
+system_tol2bus_master -> system_l2_cpu_side  [dir=forward];
+system_tol2bus_slave -> system_cpu_icache_mem_side  [dir=back];
+system_tol2bus_slave -> system_cpu_dcache_mem_side  [dir=back];
+system_tol2bus_slave -> system_cpu_itb_walker_port  [dir=back];
+system_tol2bus_slave -> system_cpu_dtb_walker_port  [dir=back];
 system_cpu_icache_port -> system_cpu_icache_cpu_side  [dir=forward];
 system_cpu_dcache_port -> system_cpu_dcache_cpu_side  [dir=forward];
 }
