@@ -55,6 +55,7 @@ On this step we keep the cache parameters as the default and we change the CPU c
 3) The CPI is not a valid parameter to compare the different benchmarks because we change the techology of the CPU. Sometimes maybe the CPI gets bigger but clock time gets even smaller. The CPI can be valid parameter to compare the cache techonoly in the inor CPI type and only if the CPU frequency is constant.
 
 **Difference between clock domain and cpu clock domain**
+
 System.clk_domain.clock is the same for all simulations because it is the whole system's clock including the peripherals , while cpu clock is only refer to the clock of cpu to it changes depending on the simulations.Thus cpu clock number in (ticks) cant be bigger than the system clock. If we add another cpu it will take the system.cpu_clk_domain.clock value.Scaling can't be perfect because all  actions in a cpu can't be done as fast as we want, so while we increaze the frequency of a cpu maybe some actions from the peripherals can't be done that fast(ex data transport). 
 
 We could understand the difference between the clock domains and the simulation times on the following table:
