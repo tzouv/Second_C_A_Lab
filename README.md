@@ -147,7 +147,7 @@ _Comments_
 
 ![image](https://user-images.githubusercontent.com/118462296/205178136-ebe9a5e2-a293-48f1-95ea-b543a5993d8f.png)
 
-The better parameters for the cache on the 401.bzip benchmark are:
+The better parameters for the cache on the 456.hmmer benchmark are:
 * Cache Line = 256
 * L1 data size = 128KB
 * L1 instruction size = 128KB
@@ -166,7 +166,7 @@ By choosing the parameters above, the **CPI** will be **1.176204**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178221-d93cfd6b-0df5-4cb6-8101-7b76d0ed29d8.png)
 
-The better parameters for the cache on the 401.bzip benchmark are:
+The better parameters for the cache on the 458.sjeng benchmark are:
 * Cache Line = 256
 * L1 data size = 128KB
 * L1 instruction size = 64KB
@@ -184,7 +184,7 @@ _Comments_
 
 ![image](https://user-images.githubusercontent.com/118462296/205178275-8573eb51-9e84-4251-87e5-c30ce579506c.png)
 
-The better parameters for the cache on the 401.bzip benchmark are:
+The better parameters for the cache on the 470.lbm benchmark are:
 * Cache Line = 256
 * L1 data size = 128KB
 * L1 instruction size = 64KB
@@ -199,3 +199,94 @@ _Comments_
 2. Due to independence of the data the more size of caches the better CPI so the size is the biggest possible.
 
 ### **_Third Part: Run benchmarks_**
+
+**Cost Function**
+Due to lack of available bibliography about the exact cost of each cache stage we only could extract information about how the cost of each cache will get affected by its size , its position in relation to the cpu , its associetivity and finally its line_size.**We build a scoreboard with points and each parameter gives different points based on its cost.**
+We know that by doubling the size of an l1cache we need double hardware hence the cost doubles up.Also we could say that the closer a cache gets to a cpu the more expensive it gets .So an l1cache of x size would be equal(cost) of an l2cache of y size.
+We abstractly defined that x would be 32kb and y 1MB.Considering the associetivity doubling its value requires more hardware but not a boudlbe up so we add a coefficient of 1.5 .As far as for the cache_line doubling the size of a fixed cache requires a few more hardware and its mostly based on a hardware rearrange so we put a coefficient of 1.2
+
+**Scoreboard table**
+| Parameter           |Value          |Points        |
+| ------------------- |:-------------:|:------------:| 
+| L1 i/d cache size   | 16KB          | 0.5 pts      | 
+|                     | 32KB          | 1 pts        | 
+|                     | 64KB          | 2 pts        | 
+|                     | 128KB         | 4 pts        | 
+| L2 cache size       | 1 MB          | 1 pts        | 
+|                     | 2 MB          | 2 pts        | 
+|                     | 4 MB          | 4 pts        | 
+| L1 association      | 2 way         | 0.5 pts      |
+|                     | 4 way         | 0.75 pts     |
+| L2 association      | 4 way         | 0.5 pts      |
+|                     | 8 way         | 0.75 pts     |
+|                     | 16 way        | 1.125 pts    |
+| Cache Line          | 32            | 0.5 pts      | 
+|                     | 64            | 0.6 pts      | 
+|                     | 128           | 0.72 pts     | 
+|                     | 256           | 0.864 pts    | 
+
+**Best cache costs**
+Based on the best cache designs on the second part and based on the cost function above, the final costs are the following:
+
+* 401/best/cost			0.864 + 0.750 + 4.0 + 1.0 + 0.500 + 4.0 = 11.114pts cpi 1.545247
+* 429/best/cost			0.864 + 0.750 + 4.0 + 2.0 + 0.500 + 4.0 = 11.989pts cpi 1.090588
+* 456/best/cost			0.864 + 1.125 + 4.0 + 4.0 + 0.500 + 1.0 = 11.114pts cpi 1.176204
+* 458/best/cost			0.864 + 0.750 + 4.0 + 2.0 + 1.125 + 4.0 = 12.739pts cpi 3.714696
+* 470/best/cost			0.864 + 0.500 + 4.0 + 2.0 + 1.125 + 4.0 = 12.489pts cpi 1.653662
+
+**Optimized cache designs for each benchmark**
+From the cost function above, we end up to the better value for money cache designs for each benckmark.
+
+The optimized parameters for the cache on the _401.bzip_ benchmark are:
+* Cache Line = 64
+* L1 data size = 128KB
+* L1 instruction size = 16KB
+* L2 size = 4MB
+* L1 association = 4
+* L2 association = 4
+
+By choosing the parameters above, the **CPI** will be **1.558243** and the **cost** will be 0.600 + 0.750 + 4.0 + 0.5 + 0.500 + 4.0 = **10.350pts**
+
+The optimized parameters for the cache on the _429.mcf_ benchmark are:
+* Cache Line = 256 
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 2MB
+* L1 association = 4
+* L2 association = 4
+
+By choosing the parameters above, the **CPI** will be **1.090681** and the **cost** will be 0.864 + 0.750 + 4.0 + 2.0 + 0.500 + 2.0 = **10.114pts**
+
+The optimized parameters for the cache on the _456.hmmer_ benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 1MB
+* L1 association = 4
+* L2 association = 4
+
+By choosing the parameters above, the **CPI** will be **1.176220** and the **cost** will be 0.864 + 0.750 + 4.0 + 2.0 + 0.500 + 1.0 =  **9.114pts**
+
+The optimized parameters for the cache on the _458.sjeng_ benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 4MB
+* L1 association = 2
+* L2 association = 8
+
+By choosing the parameters above, the **CPI** will be **3.714681** and the **cost** will be 0.864 + 0.500 + 4.0 + 2.0 + 0.750 + 4.0 = **12.114pts** 
+
+The optimized parameters for the cache on the _470.lbm_ benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 16KB
+* L2 size = 4MB
+* L1 association = 2
+* L2 association = 8
+
+By choosing the parameters above, the **CPI** will be **1.653726** and the **cost** will be 0.864 + 0.500 + 4.0 + 0.5 + 0.750 + 4.0 = **10.614pts**
+
+### **_Review_**
+This Lab was a lot more hard and fun in relation to the First One. Since we had solve all the issues with running gem5 on vm this lab focused more on running simulations , getting results, comparing/understanding them and trying the best combinations to maximize performance while keeping the cost low.
+This was a very good and realistic task because we know that cost is the most important thing that companies look. We also learn about bash scripting that made our lives easy and helped us run as fast as possible all the simulations and get the results with the easiest way possible.Concerning the structure of the assigment it was very good organized although in step1.question 3 was a little bit chaotic and not to well oriented.Another difficulty was in step 3 the bibliographic report for the explanation of our cost-fuction since there is not so much info about how the manufacturing cost of a cache gets affected. Maybe this happens because the manufacturers dont feel like giving out in public these information.
