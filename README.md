@@ -54,6 +54,31 @@ On this step we keep the cache parameters as the default and we change the CPU c
 2) The cache miss rates are the same (as expected) because there is no change on the cache parameters. So the time of execution is independent from the cache technology. The cache techology affects the host time because by impoving the memory, the CPU will take the data quickly to execute the instructions.
 3) The CPI is not a valid parameter to compare the different benchmarks because we change the techology of the CPU. Sometimes maybe the CPI gets bigger but clock time gets even smaller. The CPI can be valid parameter to compare the cache techonoly in the inor CPI type and only if the CPU frequency is constant.
 
+**Difference between clock domain and cpu clock domain**
+System.clk_domain.clock is the same for all simulations because it is the whole system's clock including the peripherals , while cpu clock is only refer to the clock of cpu to it changes depending on the simulations.Thus cpu clock number in (ticks) cant be bigger than the system clock. If we add another cpu it will take the system.cpu_clk_domain.clock value.Scaling can't be perfect because all  actions in a cpu can't be done as fast as we want, so while we increaze the frequency of a cpu maybe some actions from the peripherals can't be done that fast(ex data transport). 
+
+We could understand the difference between the clock domains and the simulation times on the following table:
+| Benchmarks      |system.clk_domain.clock | system.cpu_clk_domain.clock | sim_seconds     |
+| --------------- |:----------------------:|:---------------------------:| ---------------:|
+| 401.bzip_1GHz   | 1000                   | 1000                        | 0.299770        | 
+| 401.bzip_3GHz   | 1000                   | 333                         | 0.158327        |
+| 401.bzip_2GHz   | 1000                   | 500                         | 0.193424        |
+| --------------- | ---------------------- | --------------------------- | --------------- |
+| 429.mcf_1GHz    | 1000                   | 1000                        | 0.127942        | 
+| 429.mcf_3GHz    | 1000                   | 333                         | 0.043867        |
+| 429.mcf_2GHz    | 1000                   | 500                         | 0.064955        |
+| --------------- | ---------------------- | --------------------------- | --------------- |
+| 456.hmmer_1GHz  | 1000                   | 1000                        | 0.119777        | 
+| 456.hmmer_3GHz  | 1000                   | 333                         | 0.042047        |
+| 456.hmmer_2GHz  | 1000                   | 500                         | 0.059396        |
+| --------------- | ---------------------- | --------------------------- | --------------- |
+| 458.sjeng_1GHz  | 1000                   | 1000                        | 0.704056        | 
+| 458.sjeng_3GHz  | 1000                   | 333                         | 0.449821        |
+| 458.sjeng_2GHz  | 1000                   | 500                         | 0.513528        |
+| --------------- | ---------------------- | --------------------------- | --------------- |
+| 470.lbm_1GHz    | 1000                   | 1000                        | 0.262327        | 
+| 470.lbm_3GHz    | 1000                   | 333                         | 0.146433        |
+| 470.lbm_2GHz    | 1000                   | 500                         | 0.174671        |
 
 _Question 4_
 
@@ -172,3 +197,5 @@ By choosing the parameters above, the **CPI** will be **1.653662**
 _Comments_
 1. Any cache optimization on the 470.lbm benchmark has the smaller impact than the other benchmarks. We draw the conclusion that the data and the instructions on this program are independent. This conclusion perceived also for the miss rates of L1 data and L2 caches which is increased.
 2. Due to independence of the data the more size of caches the better CPI so the size is the biggest possible.
+
+### **_Third Part: Run benchmarks_**
