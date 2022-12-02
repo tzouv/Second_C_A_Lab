@@ -199,7 +199,7 @@ _Comments_
 1. Any cache optimization on the 470.lbm benchmark has the smaller impact than the other benchmarks. We draw the conclusion that the data and the instructions on this program are independent. This conclusion perceived also for the miss rates of L1 data and L2 caches which is increased.
 2. Due to independence of the data the more size of caches the better CPI so the size is the biggest possible.
 
-### **_Third Part: Run benchmarks_**
+### **_Third Part: Performance cost and optimization_**
 
 **Cost Function**
 Due to lack of available bibliography about the exact cost of each cache stage we only could extract information about how the cost of each cache will get affected by its size , its position in relation to the cpu , its associetivity and finally its line_size.**We build a scoreboard with points and each parameter gives different points based on its cost.**
@@ -227,6 +227,7 @@ We abstractly defined that x would be 32kb and y 1MB.Considering the associetivi
 |                     | 256           | 0.864 pts    | 
 
 **Best cache costs**
+
 Based on the best cache designs on the second part and based on the cost function above, the final costs are the following:
 
 * 401/best/cost			0.864 + 0.750 + 4.0 + 1.0 + 0.500 + 4.0 = 11.114pts cpi 1.545247
@@ -236,6 +237,7 @@ Based on the best cache designs on the second part and based on the cost functio
 * 470/best/cost			0.864 + 0.500 + 4.0 + 2.0 + 1.125 + 4.0 = 12.489pts cpi 1.653662
 
 **Optimized cache designs for each benchmark**
+
 From the cost function above, we end up to the better value for money cache designs for each benckmark.
 
 The optimized parameters for the cache on the _401.bzip_ benchmark are:
@@ -246,7 +248,9 @@ The optimized parameters for the cache on the _401.bzip_ benchmark are:
 * L1 association = 4
 * L2 association = 4
 
-By choosing the parameters above, the **CPI** will be **1.558243** and the **cost** will be 0.600 + 0.750 + 4.0 + 0.5 + 0.500 + 4.0 = **10.350pts**
+By choosing the parameters above, the **CPI** will be **1.558243** and the **cost** will be 0.600 + 0.750 + 4.0 + 0.5 + 0.500 + 4.0 = **10.350pts** 
+* Cost: -6.87% 
+* CPI: +0.84%
 
 The optimized parameters for the cache on the _429.mcf_ benchmark are:
 * Cache Line = 256 
@@ -257,6 +261,8 @@ The optimized parameters for the cache on the _429.mcf_ benchmark are:
 * L2 association = 4
 
 By choosing the parameters above, the **CPI** will be **1.090681** and the **cost** will be 0.864 + 0.750 + 4.0 + 2.0 + 0.500 + 2.0 = **10.114pts**
+* Cost: -15.6% 
+* CPI: +0.008%
 
 The optimized parameters for the cache on the _456.hmmer_ benchmark are:
 * Cache Line = 256
@@ -267,6 +273,8 @@ The optimized parameters for the cache on the _456.hmmer_ benchmark are:
 * L2 association = 4
 
 By choosing the parameters above, the **CPI** will be **1.176220** and the **cost** will be 0.864 + 0.750 + 4.0 + 2.0 + 0.500 + 1.0 =  **9.114pts**
+* Cost: -17.9% 
+* CPI: +0.001%
 
 The optimized parameters for the cache on the _458.sjeng_ benchmark are:
 * Cache Line = 256
@@ -277,6 +285,8 @@ The optimized parameters for the cache on the _458.sjeng_ benchmark are:
 * L2 association = 8
 
 By choosing the parameters above, the **CPI** will be **3.714681** and the **cost** will be 0.864 + 0.500 + 4.0 + 2.0 + 0.750 + 4.0 = **12.114pts** 
+* Cost: -4.9% 
+* CPI: 0%
 
 The optimized parameters for the cache on the _470.lbm_ benchmark are:
 * Cache Line = 256
@@ -287,6 +297,14 @@ The optimized parameters for the cache on the _470.lbm_ benchmark are:
 * L2 association = 8
 
 By choosing the parameters above, the **CPI** will be **1.653726** and the **cost** will be 0.864 + 0.500 + 4.0 + 0.5 + 0.750 + 4.0 = **10.614pts**
+* Cost: -15% 
+* CPI: +0.003%
+
+
+### **_Bibliography_**
+1. https://arstechnica.com/gadgets/2002/07/caching/?fbclid=IwAR0GgS2mXvJHPvAFkm02UgN9vWUA7Dgo1vunOSqK7t4vFUNFzg2C5Xuia1w
+2. https://semiengineering.com/the-high-but-often-unnecessary-cost-of-coherence/?fbclid=IwAR0GgS2mXvJHPvAFkm02UgN9vWUA7Dgo1vunOSqK7t4vFUNFzg2C5Xuia1w
+3. Computer Architecture Hennessy John L. , Patterson David A. (6th Edition).
 
 ### **_Review_**
 This Lab was a lot more hard and fun in relation to the First One. Since we had solve all the issues with running gem5 on vm this lab focused more on running simulations , getting results, comparing/understanding them and trying the best combinations to maximize performance while keeping the cost low.
