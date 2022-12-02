@@ -88,35 +88,87 @@ The better parameters for the cache on the 401.bzip benchmark are:
 * L1 association = 4
 * L2 association = 4
 
-By choosing the parameters above, the **CPI** will be **1.539881**
+By choosing the parameters above, the **CPI** will be **1.545247**
 
+_Comments_
+1. The cache line has positive impact on the decrease of the CPI due to the locality of the program.
+2. The increase of the L1 d size helps in the decrease of the CPI because according to the simulations the miss rate of L1 decreases.
+3. Bigger L2 size decreases the CPI because decreases the L2 miss rate, so more useful data are on the L2 cache and the CPU does not need extra time to take these data from the RAM memory which is slower.
+4. The association of the cache has no impact on the CPI possibly because the program has increased locality and the data that needs is on the same block of cache.
 
 **429.mcf**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178037-c2153272-f09f-4a77-97bd-6c0943d4d39d.png)
 
 The better parameters for the cache on the 429.mcf benchmark are:
-* Cache Line = 32
+* Cache Line = 256 ( in 429 we see that alone cacheline 32 gives us better results than 256 but if we put the best of the other options and cacheline 32 we get worse cpi than cacheline 256)
 * L1 data size = 128KB
 * L1 instruction size = 64KB
 * L2 size = 4MB
 * L1 association = 4
 * L2 association = 4
 
-By choosing the parameters above, the CPI and the miss rates will be :
+By choosing the parameters above, the **CPI** will be **1.090588**
+
+_Comments_
+1. The better cache line is the 32 based on simulations but compined with other values of cache the best CPI is for 256 cache line size.
+2. The L1 associativity has the bigger impovement on the total CPI because the processor can find the data is smaller time now.
+3. The L1 size bigger than 64KB has no impact on the CPI, so the best size is 64KB.
+4. The L2 size decreases the time that the benchmark needs to run but the effective is not so big. So considering the best performance the L2 size may be 4MB but it is not cost effective.
+5. The association of L2 has no effect on CPI and it is choosen on 4.
+
 
 **456.hmmer**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178136-ebe9a5e2-a293-48f1-95ea-b543a5993d8f.png)
 
+The better parameters for the cache on the 401.bzip benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 128KB
+* L2 size = 1MB
+* L1 association = 4
+* L2 association = 4
 
+By choosing the parameters above, the **CPI** will be **1.176204**
+
+1. The cache line has the bigger impact on the reduction of the CPI due to the locality of the program.
+2. The L1 memory increase follows to decrease the miss rate so it is selected the maximum L1 size (256KB totally).
+3. The miss rate of L2 cache is relatively small,so an increament on the L2 size does not affect the simulated seconds.
+4. The cache association does not affect the total run time and is selected the 4 way associative cache.
 
 **458.sjeng**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178221-d93cfd6b-0df5-4cb6-8101-7b76d0ed29d8.png)
 
+The better parameters for the cache on the 401.bzip benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 4MB
+* L1 association = 4
+* L2 association = 16
+
+By choosing the parameters above, the **CPI** will be **3.714696**
+
+_Comments_
+1. The cache line size improves dramatically the CPI (about 40% reduction), for the reason why the 458.sjeng benchmark has increased locality. So the data that comes on each cache line are used latter from the processor.
+2. The other parameters also improves the total CPI, even though it is not visible in the diagram due to the cache-line. 
+
 **470.lbm**
 
 ![image](https://user-images.githubusercontent.com/118462296/205178275-8573eb51-9e84-4251-87e5-c30ce579506c.png)
 
+The better parameters for the cache on the 401.bzip benchmark are:
+* Cache Line = 256
+* L1 data size = 128KB
+* L1 instruction size = 64KB
+* L2 size = 4MB
+* L1 association = 2
+* L2 association = 16
 
+By choosing the parameters above, the **CPI** will be **1.653662**
+
+_Comments_
+1. Any cache optimization on the 470.lbm benchmark has the smaller impact than the other benchmarks. We draw the conclusion that the data and the instructions on this program are independent. This conclusion perceived also for the miss rates of L1 data and L2 caches which is increased.
+2. Due to independence of the data the more size of caches the better CPI so the size is the biggest possible.
