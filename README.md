@@ -1,4 +1,4 @@
-## **Second Computer Architecture Lab : Cache oprimization**
+## **Second Computer Architecture Lab : Cache optimization**
 
 Authors: Konstantinidis Paschalis, Tzouvaras Evangelos
 
