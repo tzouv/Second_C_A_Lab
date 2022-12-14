@@ -206,6 +206,11 @@ Due to lack of available bibliography about the exact cost of each cache stage w
 We know that by doubling the size of an l1cache we need double hardware hence the cost doubles up.Also we could say that the closer a cache gets to a cpu the more expensive it gets .So an l1cache of x size would be equal(cost) of an l2cache of y size.
 We abstractly defined that x would be 32kb and y 1MB.Considering the associetivity doubling its value requires more hardware but not a boudlbe up so we add a coefficient of 1.5 .As far as for the cache_line doubling the size of a fixed cache requires a few more hardware and its mostly based on a hardware rearrange so we put a coefficient of 1.2
 
+**Cost Fucntion**
+Cost = L1_i_size(KB)/32(KB) + L1_d_size(KB)/32(KB) + L2_size(MB)/1(MB) +  0.3333*((L1_assoc)^(log1.5/log2)) +  0.2222*((L2_assoc)^(log1.5/log2)) + 0.2009*((Cache_line)^(log1.2/log2))
+
+
+
 **Scoreboard table**
 | Parameter           |Value          |Points        |
 | ------------------- |:-------------:|:------------:| 
